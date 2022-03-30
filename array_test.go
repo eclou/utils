@@ -47,14 +47,27 @@ func TestArrayUnique(t *testing.T) {
 	}
 }
 
+type Person struct {
+	Name string
+	Sex  string
+}
+
 func TestArrayColumn(t *testing.T) {
-	var arr = []map[string]string{
-		map[string]string{"name": "xiaoming", "sex": "male"},
-		map[string]string{"name": "xiaodong", "sex": "female"},
+	var arr = []*map[string]string{
+		&map[string]string{"name": "xiaoming", "sex": "male"},
+		&map[string]string{"name": "xiaodong", "sex": "female"},
 	}
 
 	nArr := ArrayColumn(arr, "name")
 	t.Log(nArr)
+
+	var arr2 = []Person{
+		Person{Name: "xiaoming", Sex: "male"},
+		Person{Name: "xiaodong", Sex: "femal"},
+	}
+
+	sArr := ArrayColumn(arr2, "Name")
+	t.Log(sArr)
 }
 
 func TestArrayIndex(t *testing.T) {
@@ -65,4 +78,12 @@ func TestArrayIndex(t *testing.T) {
 
 	nArr := ArrayIndex(arr, "name")
 	t.Log(nArr)
+
+	var arr2 = []*Person{
+		&Person{Name: "xiaoming", Sex: "male"},
+		&Person{Name: "xiaodong", Sex: "femal"},
+	}
+
+	sArr := ArrayIndex(arr2, "Name")
+	t.Log(sArr)
 }
